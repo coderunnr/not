@@ -12,7 +12,7 @@ public class Sqlview extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sqlview);
         TextView tv=(TextView)findViewById(R.id.binfosql);
-        Timetable info= new Timetable(this);
+        Datahandle info= new Datahandle(this);
         try {
             info.open();
         } catch (SQLException e) {

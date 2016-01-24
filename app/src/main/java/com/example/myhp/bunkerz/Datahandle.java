@@ -5,8 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import java.sql.SQLException;
+import java.util.Calendar;
 
 /**
  * Created by my hp on 1/23/2016.
@@ -14,6 +16,7 @@ import java.sql.SQLException;
 public class Datahandle {
     public static final String KEY_NAME="subject_name";
     public static final String KEY_ATTENDANCE="subject_attendance";
+    public static final String KEY_TOTAL="subject_total";
     private static final String DATABASE_NAME="subject";
     private static final String DATABASE_TABLE="attend_table";
     private static final int DATABASE_VERSION=1;
@@ -27,11 +30,12 @@ public class Datahandle {
         ContentValues cv=new ContentValues();
         cv.put(KEY_NAME,s);
         cv.put(KEY_ATTENDANCE,"0");
+        cv.put(KEY_TOTAL,"0");
         ourdatabase.insert(DATABASE_TABLE,null,cv);
     }
 
     public String getData() {
-        String[] columns=new String[] {KEY_NAME,KEY_ATTENDANCE};
+        String[] columns=new String[] {KEY_NAME,KEY_ATTENDANCE,KEY_TOTAL};
 
         Cursor c=ourdatabase.query(DATABASE_TABLE,columns,null,null,null,null,null);
         String result="";
@@ -39,7 +43,7 @@ public class Datahandle {
         int iname=c.getColumnIndex(KEY_NAME);
 
         for(c.moveToFirst();!c.isAfterLast();c.moveToNext()){
-            result=result+c.getString(iname)+"\n";
+            result=result+c.getString(iname)+" "+c.getString(1)+"\n";
 
         }
 
@@ -48,7 +52,7 @@ public class Datahandle {
     }
 
     public int getattendance() {
-        String[] columns=new String[] {KEY_NAME,KEY_ATTENDANCE};
+        String[] columns=new String[] {KEY_NAME,KEY_ATTENDANCE,KEY_TOTAL};
         int result=0;
         Cursor c=ourdatabase.query(DATABASE_TABLE,columns,null,null,null,null,null);
         int iattend=c.getColumnIndex(KEY_ATTENDANCE);
@@ -59,6 +63,39 @@ public class Datahandle {
         return result;
     }
 
+    public void updateattendance(int which,String s) {
+        String l=getattendforupdate(s);
+        //if(l!=null) {
+            int j = Integer.parseInt(l);
+            j = j + which;
+            l = Integer.toString(j);
+            ourdatabase.execSQL("UPDATE " + DATABASE_TABLE + " SET " + KEY_ATTENDANCE + "=" + "\""+l+"\"" + " WHERE " + KEY_NAME + "=" + "\""+s+"\"");
+        //}
+
+    }
+
+    private String getattendforupdate(String s) {
+        String[] columns=new String[] {KEY_NAME,KEY_ATTENDANCE,KEY_TOTAL};
+
+        Cursor c=ourdatabase.rawQuery("SELECT * FROM "+DATABASE_TABLE+" WHERE "+KEY_NAME+"="+"\""+s+"\"",null);
+       // KEY_NAME+"="+"\""+s+"\""
+        String result="";
+
+
+     //  if(c!=null&&c.getCount()>0) {
+           int iattend=c.getColumnIndex(KEY_ATTENDANCE);
+           c.moveToFirst();
+
+           result = c.getString(iattend);
+
+
+           return result;
+       //}
+       // return null;
+
+    }
+
+
     private static class Dbhelper extends SQLiteOpenHelper {
         public Dbhelper(Context context) {
             super(context,DATABASE_NAME, null,DATABASE_VERSION);
@@ -66,7 +103,7 @@ public class Datahandle {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            db.execSQL("CREATE TABLE "+DATABASE_TABLE+" ("+KEY_NAME+" TEXT NOT NULL, "+KEY_ATTENDANCE+" TEXT NOT NULL);");
+            db.execSQL("CREATE TABLE "+DATABASE_TABLE+" ("+KEY_NAME+" TEXT NOT NULL, "+KEY_ATTENDANCE+" TEXT NOT NULL, "+KEY_TOTAL+" TEXT NOT NULL);");
 
 
 

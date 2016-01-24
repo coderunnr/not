@@ -28,7 +28,10 @@ public class Datewise extends Activity implements CalendarView.OnDateChangeListe
         cv.setOnDateChangeListener(this);
         sp=getSharedPreferences("calendar",0);
         int days=sp.getInt("days",0);
-        done=new boolean[31];
+        done=new boolean[32];
+        for(int i=0;i<32;i++){
+            done[i]=true;
+        }
         for(int i=0;i<=days;i++){
             done[i]=false;
         }
@@ -38,15 +41,15 @@ public class Datewise extends Activity implements CalendarView.OnDateChangeListe
 
     @Override
     public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
-        if(cal.DAY_OF_MONTH>=dayOfMonth&&cal.MONTH>=month&&cal.YEAR>=year){
+        if((cal.get(Calendar.DAY_OF_MONTH)>=dayOfMonth)&&(cal.get(Calendar.MONTH)>=month)&&(cal.get(Calendar.YEAR)>=year)){
             if(done[dayOfMonth]){
                 done[dayOfMonth]=false;
                 Calendar c = Calendar.getInstance();
-                c.set(year, month, dayOfMonth);
+                c.set(year,month,dayOfMonth);
                 int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
 
                 Bundle basket=new Bundle();
-                basket.putInt(dayOfWeek);
+                basket.putInt("dayofweek",dayOfWeek);
                 Class g=null;
                 try {
                     g=Class.forName("com.example.myhp.bunkerz.Adddatewise");
