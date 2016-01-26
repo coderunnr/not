@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/changefulltime"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Change Full Timetable" />
+        <item
+            android:id="@+id/addasub"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Add A Subject" />
+        <item
+            android:id="@+id/deleteattendance"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Delete Attendance" />
+        <item
+            android:id="@+id/settings"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Settings" />
+    </group>
+
+
+
+</menu>

@@ -16,6 +16,7 @@ import java.util.Calendar;
 public class Datahandle {
     public static final String KEY_NAME="subject_name";
     public static final String KEY_ATTENDANCE="subject_attendance";
+    public static final String KEY_MASSBUNK="subject_massbunk";
     public static final String KEY_TOTAL="subject_total";
     private static final String DATABASE_NAME="subject";
     private static final String DATABASE_TABLE="attend_table";
@@ -31,11 +32,12 @@ public class Datahandle {
         cv.put(KEY_NAME,s);
         cv.put(KEY_ATTENDANCE,"0");
         cv.put(KEY_TOTAL,"0");
+        cv.put(KEY_MASSBUNK,"0");
         ourdatabase.insert(DATABASE_TABLE,null,cv);
     }
 
     public String getData() {
-        String[] columns=new String[] {KEY_NAME,KEY_ATTENDANCE,KEY_TOTAL};
+        String[] columns=new String[] {KEY_NAME,KEY_ATTENDANCE,KEY_TOTAL,KEY_MASSBUNK};
 
         Cursor c=ourdatabase.query(DATABASE_TABLE,columns,null,null,null,null,null);
         String result="";
@@ -43,7 +45,7 @@ public class Datahandle {
         int iname=c.getColumnIndex(KEY_NAME);
 
         for(c.moveToFirst();!c.isAfterLast();c.moveToNext()){
-            result=result+c.getString(iname)+" "+c.getString(1)+"\n";
+            result=result+c.getString(iname)+"\n";
 
         }
 
@@ -52,7 +54,7 @@ public class Datahandle {
     }
 
     public int getattendance() {
-        String[] columns=new String[] {KEY_NAME,KEY_ATTENDANCE,KEY_TOTAL};
+        String[] columns=new String[] {KEY_NAME,KEY_ATTENDANCE,KEY_TOTAL,KEY_MASSBUNK};
         int result=0;
         Cursor c=ourdatabase.query(DATABASE_TABLE,columns,null,null,null,null,null);
         int iattend=c.getColumnIndex(KEY_ATTENDANCE);
@@ -64,25 +66,57 @@ public class Datahandle {
     }
 
     public void updateattendance(int which,String s) {
-        String l=getattendforupdate(s);
-        //if(l!=null) {
+        String l=getattendforupdate(s,which);
+        String t=gettotalattendance(s);
+        if(l!=null&&which!=2) {
             int j = Integer.parseInt(l);
             j = j + which;
             l = Integer.toString(j);
+            int to=Integer.parseInt(t);
+            to++;
+            t=Integer.toString(to);
+
             ourdatabase.execSQL("UPDATE " + DATABASE_TABLE + " SET " + KEY_ATTENDANCE + "=" + "\""+l+"\"" + " WHERE " + KEY_NAME + "=" + "\""+s+"\"");
-        //}
+            ourdatabase.execSQL("UPDATE " + DATABASE_TABLE + " SET " + KEY_TOTAL + "=" + "\""+t+"\"" + " WHERE " + KEY_NAME + "=" + "\""+s+"\"");
+        }else if(which==2){
+            int i = Integer.parseInt(l);
+            i++;
+            l = Integer.toString(i);
+            int at=Integer.parseInt(t);
+            at++;
+            t=Integer.toString(at);
+            ourdatabase.execSQL("UPDATE " + DATABASE_TABLE + " SET " + KEY_MASSBUNK + "=" + "\""+l+"\"" + " WHERE " + KEY_NAME + "=" + "\""+s+"\"");
+            ourdatabase.execSQL("UPDATE " + DATABASE_TABLE + " SET " + KEY_TOTAL + "=" + "\""+t+"\"" + " WHERE " + KEY_NAME + "=" + "\""+s+"\"");
+        }
 
     }
 
-    private String getattendforupdate(String s) {
-        String[] columns=new String[] {KEY_NAME,KEY_ATTENDANCE,KEY_TOTAL};
+    public String gettotalattendance(String s) {
+        Cursor c=ourdatabase.rawQuery("SELECT * FROM " + DATABASE_TABLE + " WHERE " + KEY_NAME + "=" + "\"" + s + "\"", null);
+        // KEY_NAME+"="+"\""+s+"\""
+        String result="";
+
+
+        if(c!=null) {
+            int iattend = c.getColumnIndex(KEY_TOTAL);
+            c.moveToFirst();
+
+            result = c.getString(iattend);
+
+
+            return result;
+        }
+        return null;
+    }
+
+    private String getattendforupdate(String s,int which) {
 
         Cursor c=ourdatabase.rawQuery("SELECT * FROM "+DATABASE_TABLE+" WHERE "+KEY_NAME+"="+"\""+s+"\"",null);
        // KEY_NAME+"="+"\""+s+"\""
         String result="";
 
 
-     //  if(c!=null&&c.getCount()>0) {
+       if(c!=null&&c.getCount()>0&&which!=2) {
            int iattend=c.getColumnIndex(KEY_ATTENDANCE);
            c.moveToFirst();
 
@@ -90,9 +124,64 @@ public class Datahandle {
 
 
            return result;
-       //}
-       // return null;
+       }
+        else if(which==2){
+           int imass=c.getColumnIndex(KEY_MASSBUNK);
+           c.moveToFirst();
 
+           result = c.getString(imass);
+           return result;
+       }
+        return null;
+
+    }
+
+    public int gettotalattendance() {
+        String[] columns=new String[] {KEY_NAME,KEY_ATTENDANCE,KEY_TOTAL,KEY_MASSBUNK};
+        int result=0;
+        Cursor c=ourdatabase.query(DATABASE_TABLE,columns,null,null,null,null,null);
+        int itotal=c.getColumnIndex(KEY_TOTAL);
+        for(c.moveToFirst();!c.isAfterLast();c.moveToNext()){
+            result=result+Integer.parseInt(c.getString(itotal));
+        }
+
+        return result;
+    }
+
+    public String getpresent(String s) {
+        Cursor c=ourdatabase.rawQuery("SELECT * FROM " + DATABASE_TABLE + " WHERE " + KEY_NAME + "=" + "\"" + s + "\"", null);
+        // KEY_NAME+"="+"\""+s+"\""
+        String result="";
+
+
+        if(c!=null&&c.getCount()>0) {
+            int iattend = c.getColumnIndex(KEY_ATTENDANCE);
+            c.moveToFirst();
+
+            result = c.getString(iattend);
+
+
+            return result;
+        }
+        return null;
+    }
+
+    public String getmassbunk(String s) {
+        Cursor c=ourdatabase.rawQuery("SELECT * FROM " + DATABASE_TABLE + " WHERE " + KEY_NAME + "=" + "\"" + s + "\"", null);
+        // KEY_NAME+"="+"\""+s+"\""
+        String result="";
+
+
+        if(c!=null&&c.getCount()>0) {
+            int iattend = c.getColumnIndex(KEY_MASSBUNK);
+            c.moveToFirst();
+
+            result = c.getString(iattend);
+
+
+            return result;
+        }
+        return null;
     }
 
 
@@ -103,7 +192,7 @@ public class Datahandle {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            db.execSQL("CREATE TABLE "+DATABASE_TABLE+" ("+KEY_NAME+" TEXT NOT NULL, "+KEY_ATTENDANCE+" TEXT NOT NULL, "+KEY_TOTAL+" TEXT NOT NULL);");
+            db.execSQL("CREATE TABLE "+DATABASE_TABLE+" ("+KEY_NAME+" TEXT NOT NULL, "+KEY_ATTENDANCE+" TEXT NOT NULL, "+KEY_TOTAL+" TEXT NOT NULL, "+KEY_MASSBUNK+" TEXT NOT NULL);");
 
 
 

@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.main);
         etcriteria=(EditText)findViewById(R.id.etcriteria);
         addsubj=(Button)findViewById(R.id.button);
+        TextView tv=(TextView)findViewById(R.id.showcriteriatv);
         l=(LinearLayout)findViewById(R.id.linearfirst);
         save=(Button)findViewById(R.id.bsavefirst);
         save.setOnClickListener(this);
@@ -39,6 +41,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         SharedPreferences.Editor editor=sp.edit();
         editor.putInt("days",0);
         editor.commit();
+        Bundle back=getIntent().getExtras();
+
+        if(!back.getBoolean("show",true)){
+            etcriteria.setVisibility(View.GONE);
+            tv.setVisibility(View.GONE);
+        }
+
     }
 
     @Override
@@ -51,17 +60,26 @@ switch(v.getId()) {
 
         for(int i=0;i<hint;i++){
             EditText et=etArray.get(i);
-
-            Datahandle d=new Datahandle(this);
-            try {
-                d.open();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            d.createentry(et.getText().toString());
-            d.close();
+if(et.getText().toString()!="") {
+    Datahandle d = new Datahandle(this);
+    try {
+        d.open();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    d.createentry(et.getText().toString());
+    d.close();
+}
 
         }
+        String s=etcriteria.getText().toString().trim();
+        if(s.equals("")){
+            s="75";
+        }
+        SharedPreferences sf=getSharedPreferences("criteria",0);
+        SharedPreferences.Editor editor=sf.edit();
+        editor.putInt("percent",Integer.parseInt(s));
+
 
 
 

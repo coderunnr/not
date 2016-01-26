@@ -133,6 +133,11 @@ public class Timetable {
         return result1.split("\n");
     }
 
+    public void droptable() {
+        ourdatabase.execSQL("DROP TABLE "+DATABASE_TABLE);
+        ourdatabase.execSQL("CREATE TABLE "+DATABASE_TABLE+" ("+KEY_NAME+" TEXT NOT NULL, "+START+" TEXT NOT NULL, "+STOP+" TEXT NOT NULL, "+KEY_DAY+" TEXT NOT NULL);");
+    }
+
     private static class Dbhelper extends SQLiteOpenHelper {
         public Dbhelper(Context context) {
             super(context,DATABASE_NAME, null,DATABASE_VERSION);

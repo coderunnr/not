@@ -118,6 +118,7 @@ public class Subjectlist extends FragmentActivity implements View.OnClickListene
          linear.addView(b);
          linear.addView(b2);
          activate=false;
+         done.setVisibility(View.INVISIBLE);
      }
      else{
          Toast t=Toast.makeText(Subjectlist.this,"Save the Subject First",Toast.LENGTH_LONG);
@@ -144,6 +145,7 @@ Integer integer=new Integer(starttime);
 
      g.close();
      activate=true;
+     done.setVisibility(View.VISIBLE);
      //Class c= null;
    /*  try {
          c = Class.forName("com.example.myhp.bunkerz.Sqlview");
@@ -225,7 +227,7 @@ else if(v.getId()==R.id.bdone){
         case "Saturday":
             Class c= null;
     try {
-         c = Class.forName("com.example.myhp.bunkerz.Front");
+         c = Class.forName("com.example.myhp.bunkerz.Mainpage");
          Intent in=new Intent(Subjectlist.this,c);
          startActivity(in);
      } catch (ClassNotFoundException e) {

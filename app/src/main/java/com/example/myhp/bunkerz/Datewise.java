@@ -37,6 +37,8 @@ public class Datewise extends Activity implements CalendarView.OnDateChangeListe
         }
         tv.setText("Attendance is added till "+days);
         cal=Calendar.getInstance();
+       // int daysInMonth = cal.getActualMaximum(cal.DAY_OF_MONTH);
+        //cv.setMaxDate(daysInMonth);
     }
 
     @Override

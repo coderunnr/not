@@ -26,7 +26,7 @@ public class Adddatewise extends Activity implements View.OnClickListener,Adapte
     int hint;
     LinearLayout l;
     ListView lv;
-    String[] status={"Absent","Present"};
+    String[] status={"Absent","Present","MassBunk"};
     String p;
     ArrayList<String> list;
     @Override
