@@ -44,14 +44,7 @@ public class Mainpage extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -71,6 +64,14 @@ public class Mainpage extends AppCompatActivity
         d.open();
         int a=d.getattendance();
         int b=d.gettotalattendance();
+        int c=d.gettotalmassbunk();
+        SharedPreferences sf=getSharedPreferences("criteria", 0);
+
+
+
+        if(sf.getBoolean("include",false)){
+        b=b+c;
+    }
         float f=(float)a/b;
         f=f*100;
         tv.setText(String.format("%.2f",f));
@@ -89,6 +90,15 @@ public class Mainpage extends AppCompatActivity
         }
         int a=d.getattendance();
         int b=d.gettotalattendance();
+
+        int c=d.gettotalmassbunk();
+        SharedPreferences sf=getSharedPreferences("criteria", 0);
+
+
+
+        if(sf.getBoolean("include",false)){
+            b=b+c;
+        }
         if(b!=0) {
             float af = (float) a;
             float bf = (float) b;
@@ -229,9 +239,28 @@ public class Mainpage extends AppCompatActivity
 
 
         } else if (id == R.id.deleteattendance) {
+          Class v= null;
+
+          try {
+              v = Class.forName("com.example.myhp.bunkerz.Deleteattendance");
+          } catch (ClassNotFoundException e) {
+              e.printStackTrace();
+          }
+          Intent in1 =new Intent(Mainpage.this,v);
+
+          startActivity(in1);
 
         } else if (id == R.id.settings) {
+          Class v2= null;
 
+          try {
+              v2 = Class.forName("com.example.myhp.bunkerz.Settings");
+          } catch (ClassNotFoundException e) {
+              e.printStackTrace();
+          }
+          Intent in2 =new Intent(Mainpage.this,v2);
+
+          startActivity(in2);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

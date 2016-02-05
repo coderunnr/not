@@ -11,6 +11,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.myhp.bunkerz.Mainpage"
     tools:showIn="@layout/app_bar_mainpage"
+android:background="@color/colorwhite"
     >
     <TextView
         android:layout_width="wrap_content"
@@ -22,32 +23,42 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="56dp" />
 
+
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="View Subjectwise Attendance"
-        android:id="@+id/opensubjectwise"
-        android:layout_marginTop="52dp"
-        android:layout_below="@+id/tvpercentage"
-        android:layout_centerHorizontal="true" />
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="Add Attendance Subjectwise"
+      android:id="@+id/subjectwiseadd"
+      android:background="@color/colorPrimary"
+      android:textColor="@color/colorwhite"
+        android:layout_below="@+id/opensubjectwise"
+        android:layout_alignRight="@+id/more"
+        android:layout_alignEnd="@+id/more"
+        android:layout_marginTop="95dp" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add Attendance Datewise"
-        android:id="@+id/addattendance"
-        android:layout_gravity="center_horizontal"
-        android:layout_below="@+id/opensubjectwise"
+        android:text="View Subjectwise Attendance"
+        android:id="@+id/opensubjectwise"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorwhite"
+
+        android:layout_below="@+id/addattendance"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="73dp" />
+        android:layout_marginTop="51dp" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add Attendance Subjectwise"
-        android:id="@+id/subjectwiseadd"
-        android:layout_below="@+id/addattendance"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="72dp" />
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Add Attendance Datewise"
+    android:id="@+id/addattendance"
+    android:layout_gravity="center_horizontal"
+    android:background="@color/colorPrimary"
+    android:textColor="@color/colorwhite"
+        android:layout_marginTop="80dp"
+        android:layout_below="@+id/tvpercentage"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

@@ -5,14 +5,17 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.TypedValue;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -32,10 +35,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         etcriteria=(EditText)findViewById(R.id.etcriteria);
         addsubj=(Button)findViewById(R.id.button);
         TextView tv=(TextView)findViewById(R.id.showcriteriatv);
-        l=(LinearLayout)findViewById(R.id.linearfirst);
+        l=(LinearLayout)findViewById(R.id.mainll);
         save=(Button)findViewById(R.id.bsavefirst);
+        Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar7);
+        setSupportActionBar(toolbar);
+
         save.setOnClickListener(this);
         addsubj.setOnClickListener(this);
+
         etArray = new ArrayList<EditText>();
         sp=getSharedPreferences("calendar",0);
         SharedPreferences.Editor editor=sp.edit();
@@ -46,6 +53,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(!back.getBoolean("show",true)){
             etcriteria.setVisibility(View.GONE);
             tv.setVisibility(View.GONE);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
     }
@@ -79,6 +88,8 @@ if(et.getText().toString()!="") {
         SharedPreferences sf=getSharedPreferences("criteria",0);
         SharedPreferences.Editor editor=sf.edit();
         editor.putInt("percent",Integer.parseInt(s));
+        editor.putBoolean("include",false);
+        editor.commit();
 
 
 
@@ -96,6 +107,16 @@ if(et.getText().toString()!="") {
         break;
 
 }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(item.getItemId()==android.R.id.home)
+        {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     protected void createEditTextView() {
@@ -118,6 +139,12 @@ if(et.getText().toString()!="") {
        etArray.add(edittTxt);
         l.addView(edittTxt);
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
     }
 
 }

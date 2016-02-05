@@ -4,16 +4,20 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 import java.util.Calendar;
 
 /**
  * Created by my hp on 1/24/2016.
  */
-public class Datewise extends Activity implements CalendarView.OnDateChangeListener {
+public class Datewise extends AppCompatActivity implements CalendarView.OnDateChangeListener {
     CalendarView cv;
     boolean done[];
     Calendar cal;
@@ -25,6 +29,10 @@ public class Datewise extends Activity implements CalendarView.OnDateChangeListe
         setContentView(R.layout.datewiseattendance);
         cv=(CalendarView)findViewById(R.id.calendarView);
         tv=(TextView)findViewById(R.id.lastdate);
+        Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar3);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         cv.setOnDateChangeListener(this);
         sp=getSharedPreferences("calendar",0);
         int days=sp.getInt("days",0);
@@ -41,6 +49,15 @@ public class Datewise extends Activity implements CalendarView.OnDateChangeListe
         //cv.setMaxDate(daysInMonth);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(item.getItemId()==android.R.id.home)
+        {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
     @Override
     public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
         if((cal.get(Calendar.DAY_OF_MONTH)>=dayOfMonth)&&(cal.get(Calendar.MONTH)>=month)&&(cal.get(Calendar.YEAR)>=year)){

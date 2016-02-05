@@ -7,11 +7,15 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.format.DateFormat;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -24,6 +28,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -31,14 +36,14 @@ import java.util.Calendar;
 /**
  * Created by my hp on 1/23/2016.
  */
-public class Subjectlist extends FragmentActivity implements View.OnClickListener,AdapterView.OnItemSelectedListener{
+public class Subjectlist extends AppCompatActivity implements View.OnClickListener,AdapterView.OnItemSelectedListener{
     LinearLayout linear;
     Button addsub,savetimetab,done;
     int hint;
     TextView tv;
     ArrayAdapter<String> adapter;
     boolean activate=true;
-    static String starttime,stoptime,temp;
+    static String starttime="0",stoptime="0",temp;
     String subjectname,day;
     SharedPreferences somedata;
     static int z=0;
@@ -54,6 +59,10 @@ public class Subjectlist extends FragmentActivity implements View.OnClickListene
         savetimetab=(Button)findViewById(R.id.bsavetimetab);
         tv=(TextView)findViewById(R.id.tday);
         done=(Button)findViewById(R.id.bdone);
+        Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar6);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         addsub.setOnClickListener(this);
         savetimetab.setOnClickListener(this);
         done.setOnClickListener(this);
@@ -63,7 +72,7 @@ public class Subjectlist extends FragmentActivity implements View.OnClickListene
         SharedPreferences.Editor editor=somedata.edit();
         editor.putInt("hint", hint);
         editor.commit();
-
+subjectname=result[0];
         Bundle backpack=getIntent().getExtras();
        day= backpack.getString("day");
         tv.setText(day);
@@ -104,9 +113,22 @@ public class Subjectlist extends FragmentActivity implements View.OnClickListene
          b2.setOnClickListener(this);
 
          b.setId(hint);
+         if(android.os.Build.VERSION.SDK_INT >= 21){
+             b.setBackground(getResources().getDrawable(R.color.colorPrimary, null));
+         } else {
+             b.setBackground(getResources().getDrawable(R.color.colorPrimary));
+         }
 
          b2.setId(hint);
 
+         if(android.os.Build.VERSION.SDK_INT >= 21){
+             b2.setBackground(getResources().getDrawable(R.color.colorPrimary, null));
+         } else {
+             b2.setBackground(getResources().getDrawable(R.color.colorPrimary));
+         }
+
+         b.setTextColor(Color.WHITE);
+         b2.setTextColor(Color.WHITE);
          sp.setAdapter(adapter);
          sp.setId(hint);
          hint++;
@@ -293,6 +315,22 @@ stoptime=Integer.toString(j);
         super.onResume();
         SharedPreferences sh=getSharedPreferences("shared",0);
         hint=sh.getInt("hint",0);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(item.getItemId()==android.R.id.home)
+        {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
 

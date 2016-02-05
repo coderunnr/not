@@ -184,6 +184,35 @@ public class Datahandle {
         return null;
     }
 
+    public void deleteattendance(int which, String s) {
+        String l=getattendforupdate(s, which);
+        String t=gettotalattendance(s);
+        if(l!=null) {
+            int j = Integer.parseInt(l);
+            j = j-1;
+            l = Integer.toString(j);
+            int to=Integer.parseInt(t);
+            to--;
+            t=Integer.toString(to);
+
+            ourdatabase.execSQL("UPDATE " + DATABASE_TABLE + " SET " + KEY_ATTENDANCE + "=" + "\"" + l + "\"" + " WHERE " + KEY_NAME + "=" + "\"" + s + "\"");
+            ourdatabase.execSQL("UPDATE " + DATABASE_TABLE + " SET " + KEY_TOTAL + "=" + "\""+t+"\"" + " WHERE " + KEY_NAME + "=" + "\""+s+"\"");
+        }
+    }
+
+    public int gettotalmassbunk() {
+        String[] columns=new String[] {KEY_NAME,KEY_ATTENDANCE,KEY_TOTAL,KEY_MASSBUNK};
+        int result=0;
+        Cursor c=ourdatabase.query(DATABASE_TABLE,columns,null,null,null,null,null);
+        int itotal=c.getColumnIndex(KEY_MASSBUNK);
+        for(c.moveToFirst();!c.isAfterLast();c.moveToNext()){
+            result=result+Integer.parseInt(c.getString(itotal));
+        }
+
+        return result;
+
+    }
+
 
     private static class Dbhelper extends SQLiteOpenHelper {
         public Dbhelper(Context context) {

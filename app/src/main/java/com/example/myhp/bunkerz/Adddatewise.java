@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.TypedValue;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,13 +19,14 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
  * Created by my hp on 1/24/2016.
  */
-public class Adddatewise extends Activity implements View.OnClickListener,AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
+public class Adddatewise extends AppCompatActivity implements View.OnClickListener,AdapterView.OnItemClickListener,DialogInterface.OnClickListener {
     int hint;
     LinearLayout l;
     ListView lv;
@@ -35,6 +39,10 @@ public class Adddatewise extends Activity implements View.OnClickListener,Adapte
         setContentView(R.layout.adddatewise);
         l=(LinearLayout)findViewById(R.id.adddatewiselayout);
         lv=(ListView)findViewById(R.id.listsubject);
+        Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar2);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         TextView test=(TextView)findViewById(R.id.textView);
         Bundle bucket=getIntent().getExtras();
         int g=bucket.getInt("dayofweek");
@@ -109,5 +117,15 @@ public class Adddatewise extends Activity implements View.OnClickListener,Adapte
         }
         b.updateattendance(which,p);
         b.close();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(item.getItemId()==android.R.id.home)
+        {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

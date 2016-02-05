@@ -4,10 +4,14 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -15,7 +19,7 @@ import java.util.ArrayList;
 /**
  * Created by my hp on 1/26/2016.
  */
-public class Addsubjectwise extends Activity implements AdapterView.OnItemClickListener,DialogInterface.OnClickListener{
+public class Addsubjectwise extends AppCompatActivity implements AdapterView.OnItemClickListener,DialogInterface.OnClickListener{
         ListView lv;
         ArrayList<String> list;
     String p;
@@ -25,6 +29,10 @@ public class Addsubjectwise extends Activity implements AdapterView.OnItemClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addsubjectwise);
         lv=(ListView)findViewById(R.id.listofsubjects);
+        Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar1);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         Datahandle xn=new Datahandle(this);
         try {
             xn.open();
@@ -60,5 +68,15 @@ public class Addsubjectwise extends Activity implements AdapterView.OnItemClickL
         }
         b.updateattendance(which,p);
         b.close();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(item.getItemId()==android.R.id.home)
+        {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
