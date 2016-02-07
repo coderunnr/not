@@ -2,6 +2,7 @@ package com.example.myhp.bunkerz;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -26,6 +27,12 @@ public class Viewsubjectattendance extends AppCompatActivity {
         absent=(TextView)findViewById(R.id.viewabsent);
         massbunk=(TextView)findViewById(R.id.viewmassbunk);
         status=(TextView)findViewById(R.id.attendancestatus);
+        Typeface custom_font = Typeface.createFromAsset(getAssets(), "android.ttf");
+        subname.setTypeface(custom_font);
+        present.setTypeface(custom_font);
+        absent.setTypeface(custom_font);
+        massbunk.setTypeface(custom_font);
+        status.setTypeface(custom_font);
         Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar4);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

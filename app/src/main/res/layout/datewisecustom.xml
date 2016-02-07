@@ -11,7 +11,7 @@
         android:id="@+id/view">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar5"
+            android:id="@+id/toolbarcustom"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorappbar"
@@ -19,21 +19,17 @@
             />
 
     </android.support.design.widget.AppBarLayout>
+    <com.imanoweb.calendarview.CustomCalendarView
+        android:id="@+id/calendar_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff">
+    </com.imanoweb.calendarview.CustomCalendarView>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Subjects"
-        android:textSize="24sp"
-        android:id="@+id/tvviewsubjectwise1"
-        android:layout_gravity="center_horizontal"
-        android:textIsSelectable="false" />
-
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/listsubjectwise"
-        android:divider="@color/colorblack"
-        android:dividerHeight="0.5dp"/>
-
+        android:text="New Text"
+        android:id="@+id/lastdate"
+        android:layout_gravity="center_horizontal" />
 </LinearLayout>

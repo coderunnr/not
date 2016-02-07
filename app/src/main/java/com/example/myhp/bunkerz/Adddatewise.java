@@ -2,6 +2,7 @@ package com.example.myhp.bunkerz;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -44,9 +45,11 @@ public class Adddatewise extends AppCompatActivity implements View.OnClickListen
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         TextView test=(TextView)findViewById(R.id.textView);
+        Typeface custom_font = Typeface.createFromAsset(getAssets(), "android.ttf");
+        test.setTypeface(custom_font);
         Bundle bucket=getIntent().getExtras();
         int g=bucket.getInt("dayofweek");
-        test.setText(""+g);
+        test.setText(getweekname(g));
         Timetable xn=new Timetable(this);
         try {
             xn.open();
@@ -63,6 +66,36 @@ public class Adddatewise extends AppCompatActivity implements View.OnClickListen
         lv.setAdapter(items);
         lv.setOnItemClickListener(this);
         //createtextview();
+    }
+
+    private String getweekname(int g) {
+String s=null;
+        switch(g){
+            case 6:
+              s="Monday";
+                break;
+            case 7:
+                s="Tuesday";
+                break;
+            case 1:
+                s="Wednesday";
+                break;
+            case 2:
+                s="Thursday";
+                break;
+            case 3:
+                s="Friday";
+                break;
+            case 4:
+                s="Saturday";
+                break;
+            case 5:
+                s="Sunday";
+                break;
+
+
+        }
+        return s;
     }
 
     @Override

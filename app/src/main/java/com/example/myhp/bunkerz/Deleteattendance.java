@@ -2,6 +2,7 @@ package com.example.myhp.bunkerz;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -28,6 +30,9 @@ public class Deleteattendance extends AppCompatActivity implements AdapterView.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.deleteattendance);
         lv=(ListView)findViewById(R.id.listofsubjectsd);
+        TextView tv=(TextView)findViewById(R.id.tvdisplaysubjectwised);
+        Typeface custom_font = Typeface.createFromAsset(getAssets(), "android.ttf");
+        tv.setTypeface(custom_font);
         Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar8);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

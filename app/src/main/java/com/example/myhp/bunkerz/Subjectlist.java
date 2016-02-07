@@ -8,6 +8,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 
 import android.support.v4.app.DialogFragment;
@@ -59,6 +60,11 @@ public class Subjectlist extends AppCompatActivity implements View.OnClickListen
         savetimetab=(Button)findViewById(R.id.bsavetimetab);
         tv=(TextView)findViewById(R.id.tday);
         done=(Button)findViewById(R.id.bdone);
+        Typeface custom_font = Typeface.createFromAsset(getAssets(), "android.ttf");
+        done.setTypeface(custom_font);
+        tv.setTypeface(custom_font);
+        savetimetab.setTypeface(custom_font);
+        addsub.setTypeface(custom_font);
         Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar6);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -193,6 +199,7 @@ else if(v.getId()==R.id.bdone){
             next = new Intent(Subjectlist.this,open);
             next.putExtras(basket);
             startActivity(next);
+            overridePendingTransition(R.anim.flip_horizontal_in, R.anim.flip_horizontal_out);
             break;
         case "Tuesday":
             basket=new Bundle();
@@ -206,6 +213,7 @@ else if(v.getId()==R.id.bdone){
             next = new Intent(Subjectlist.this,open);
             next.putExtras(basket);
             startActivity(next);
+            overridePendingTransition(R.anim.flip_horizontal_in, R.anim.flip_horizontal_out);
             break;
         case "Wednesday":
             basket=new Bundle();
@@ -219,6 +227,7 @@ else if(v.getId()==R.id.bdone){
             next = new Intent(Subjectlist.this,open);
             next.putExtras(basket);
             startActivity(next);
+            overridePendingTransition(R.anim.flip_horizontal_in, R.anim.flip_horizontal_out);
             break;
         case "Thursday":
             basket=new Bundle();
@@ -232,6 +241,7 @@ else if(v.getId()==R.id.bdone){
             next = new Intent(Subjectlist.this,open);
             next.putExtras(basket);
             startActivity(next);
+            overridePendingTransition(R.anim.flip_horizontal_in, R.anim.flip_horizontal_out);
             break;
         case "Friday":
             basket=new Bundle();
@@ -245,6 +255,7 @@ else if(v.getId()==R.id.bdone){
             next = new Intent(Subjectlist.this,open);
             next.putExtras(basket);
             startActivity(next);
+            overridePendingTransition(R.anim.flip_horizontal_in, R.anim.flip_horizontal_out);
             break;
         case "Saturday":
             Class c= null;
@@ -252,6 +263,7 @@ else if(v.getId()==R.id.bdone){
          c = Class.forName("com.example.myhp.bunkerz.Mainpage");
          Intent in=new Intent(Subjectlist.this,c);
          startActivity(in);
+        overridePendingTransition(R.anim.flip_horizontal_in, R.anim.flip_horizontal_out);
      } catch (ClassNotFoundException e) {
          e.printStackTrace();
      }

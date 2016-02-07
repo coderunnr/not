@@ -1,7 +1,11 @@
 package com.example.myhp.bunkerz;
 
+import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,6 +22,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.sql.SQLException;
+import java.util.Calendar;
 
 public class Mainpage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener {
@@ -33,6 +38,11 @@ public class Mainpage extends AppCompatActivity
         viewsub=(Button)findViewById(R.id.opensubjectwise);
         addsubjectwise=(Button)findViewById(R.id.subjectwiseadd);
         tv = (TextView) findViewById(R.id.tvpercentage);
+        Typeface custom_font = Typeface.createFromAsset(getAssets(), "android.ttf");
+        tv.setTypeface(custom_font);
+        viewsub.setTypeface(custom_font);
+        addsubjectwise.setTypeface(custom_font);
+        addattendance.setTypeface(custom_font);
         viewsub.setOnClickListener(this);
         addattendance.setOnClickListener(this);
         addsubjectwise.setOnClickListener(this);
@@ -54,8 +64,20 @@ public class Mainpage extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        SharedPreferences prefs=getSharedPreferences("myfirsttime",0);
+        SharedPreferences prefs=getSharedPreferences("myfirsttime", 0);
         prefs.edit().putBoolean("myfirst",false).commit();
+
+
+
+       /* Intent intent=new Intent(this,Notificationgen.class);
+        AlarmManager manager=(AlarmManager)getSystemService(Activity.ALARM_SERVICE);
+        PendingIntent pendingIntent=PendingIntent.getService(this,
+                0,intent, 0);
+        Calendar cal=Calendar.getInstance();
+        cal.set(Calendar.YEAR,Calendar.MONTH,Calendar.DAY_OF_MONTH,18,0);
+
+        manager.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 24 * 60 * 60 * 1000, pendingIntent);*/
+
     }
 
 
@@ -118,12 +140,13 @@ public class Mainpage extends AppCompatActivity
             case R.id.addattendance:
                 Class i = null;
                 try {
-                    i = Class.forName("com.example.myhp.bunkerz.Datewise");
+                    i = Class.forName("com.example.myhp.bunkerz.Datewisecustom");
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
                 Intent b = new Intent(Mainpage.this, i);
                 startActivity(b);
+                overridePendingTransition(R.anim.flip_horizontal_in, R.anim.flip_horizontal_out);
                 break;
             case R.id.opensubjectwise:
                 Class i1 = null;
@@ -134,6 +157,7 @@ public class Mainpage extends AppCompatActivity
                 }
                 Intent y = new Intent(Mainpage.this, i1);
                 startActivity(y);
+                overridePendingTransition(R.anim.flip_horizontal_in, R.anim.flip_horizontal_out);
                 break;
             case R.id.subjectwiseadd:
                 Class i2 = null;
@@ -144,6 +168,7 @@ public class Mainpage extends AppCompatActivity
                 }
                 Intent x = new Intent(Mainpage.this, i2);
                 startActivity(x);
+                overridePendingTransition(R.anim.flip_horizontal_in, R.anim.flip_horizontal_out);
                 break;
        /* Class c = null;
         try {
@@ -250,6 +275,7 @@ public class Mainpage extends AppCompatActivity
 
           startActivity(in1);
 
+
         } else if (id == R.id.settings) {
           Class v2= null;
 
@@ -261,6 +287,7 @@ public class Mainpage extends AppCompatActivity
           Intent in2 =new Intent(Mainpage.this,v2);
 
           startActivity(in2);
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -2,6 +2,7 @@ package com.example.myhp.bunkerz;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +17,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+
+import com.github.florent37.materialtextfield.MaterialTextField;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -37,6 +40,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TextView tv=(TextView)findViewById(R.id.showcriteriatv);
         l=(LinearLayout)findViewById(R.id.mainll);
         save=(Button)findViewById(R.id.bsavefirst);
+        MaterialTextField mv=(MaterialTextField)findViewById(R.id.materialtv);
+        Typeface custom_font = Typeface.createFromAsset(getAssets(), "android.ttf");
+        save.setTypeface(custom_font);
+        tv.setTypeface(custom_font);
+        addsubj.setTypeface(custom_font);
         Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar7);
         setSupportActionBar(toolbar);
 
@@ -53,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(!back.getBoolean("show",true)){
             etcriteria.setVisibility(View.GONE);
             tv.setVisibility(View.GONE);
+            mv.setVisibility(View.GONE);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -101,6 +110,7 @@ if(et.getText().toString()!="") {
             Intent in =new Intent(MainActivity.this,u);
             in.putExtras(basket);
             startActivity(in);
+            overridePendingTransition(R.anim.flip_horizontal_in, R.anim.flip_horizontal_out);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }

@@ -48,6 +48,7 @@
         android:layout_marginRight="4dp"
         android:layout_marginTop="20dp"
         app:mtf_cardColor="@color/colorPrimary"
+        android:id="@+id/materialtv"
 
         >
 
@@ -63,7 +64,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/etcriteria"
 
-            android:hint="Criteria here"/>
+            android:hint="Criteria here"
+            android:textColorHint="@color/black"/>
 
     </com.github.florent37.materialtextfield.MaterialTextField>
 

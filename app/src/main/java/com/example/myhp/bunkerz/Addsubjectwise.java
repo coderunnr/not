@@ -2,6 +2,7 @@ package com.example.myhp.bunkerz;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 
 import java.sql.SQLException;
@@ -29,6 +31,9 @@ public class Addsubjectwise extends AppCompatActivity implements AdapterView.OnI
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addsubjectwise);
         lv=(ListView)findViewById(R.id.listofsubjects);
+        TextView tv=(TextView)findViewById(R.id.tvdisplaysubjectwise);
+        Typeface custom_font = Typeface.createFromAsset(getAssets(), "android.ttf");
+        tv.setTypeface(custom_font);
         Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

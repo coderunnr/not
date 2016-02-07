@@ -17,11 +17,11 @@ android:background="@color/colorwhite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Text"
+        android:textSize="24sp"
         android:id="@+id/tvpercentage"
-        android:layout_gravity="center_horizontal"
+
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="56dp" />
+        android:layout_centerHorizontal="true" />
 
 
     <Button
@@ -31,10 +31,9 @@ android:background="@color/colorwhite"
       android:id="@+id/subjectwiseadd"
       android:background="@color/colorPrimary"
       android:textColor="@color/colorwhite"
-        android:layout_below="@+id/opensubjectwise"
-        android:layout_alignRight="@+id/more"
-        android:layout_alignEnd="@+id/more"
-        android:layout_marginTop="95dp" />
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="match_parent"
@@ -44,10 +43,10 @@ android:background="@color/colorwhite"
         android:background="@color/colorPrimary"
         android:textColor="@color/colorwhite"
 
-        android:layout_below="@+id/addattendance"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="51dp" />
+        android:layout_marginTop="71dp"
+        android:layout_below="@+id/tvpercentage"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <Button
     android:layout_width="match_parent"
@@ -57,8 +56,8 @@ android:background="@color/colorwhite"
     android:layout_gravity="center_horizontal"
     android:background="@color/colorPrimary"
     android:textColor="@color/colorwhite"
-        android:layout_marginTop="80dp"
-        android:layout_below="@+id/tvpercentage"
+        android:layout_marginBottom="95dp"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 </RelativeLayout>

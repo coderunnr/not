@@ -78,7 +78,7 @@ public class Datewise extends AppCompatActivity implements CalendarView.OnDateCh
                 Intent in=new Intent(Datewise.this,g);
                 in.putExtras(basket);
                 startActivity(in);
-
+                overridePendingTransition(R.anim.flip_horizontal_in, R.anim.flip_horizontal_out);
 
             }
             else{
